@@ -10,6 +10,7 @@ import {MatButton, MatIconButton} from '@angular/material/button'
 import {MatIcon} from '@angular/material/icon'
 import {RouterLink} from '@angular/router'
 import {NgIf, NgOptimizedImage} from '@angular/common'
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu'
 
 @Component({
   selector: 'ui-header',
@@ -22,6 +23,9 @@ import {NgIf, NgOptimizedImage} from '@angular/common'
     MatButton,
     NgOptimizedImage,
     NgIf,
+    MatMenu,
+    MatMenuTrigger,
+    MatMenuItem
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

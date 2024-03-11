@@ -1,3 +1,21 @@
 .spacer {
   flex: 1 1 auto;
 }
+
+.vertical-line {
+  height: 24px;
+  width: 1px;
+  background-color: #ccc;
+  margin: 0 16px;
+}
+.avatar-button {
+  width: auto;
+  padding: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.avatar-image {
+  width: 100%; /* Сделать изображение по ширине кнопки */
+  height: 100%; /* Сделать изображение по высоте кнопки */
+  object-fit: cover; /* Заполнить изображение полностью в пределах своего контейнера */
+}
