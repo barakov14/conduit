@@ -1,0 +1,20 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-footer {
+  flex-grow: 1; /* Расширяется, чтобы заполнить доступное пространство между header и footer */
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

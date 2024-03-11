@@ -1,0 +1,20 @@
+<div class="wrapper">
+  <mat-sidenav-container
+    fullscreen
+    class="sidenav-container"
+    [ngClass]="{'dark-theme': isDarkMode, 'light-theme': !isDarkMode}"
+  >
+    <ui-header
+      (switchMode)="onSwitchMode()"
+      [isDarkMode]="isDarkMode"
+    ></ui-header>
+    <mat-sidenav>
+      <router-outlet></router-outlet>
+    </mat-sidenav>
+    <div class="content-footer">
+      <div class="footer">
+        <ui-footer></ui-footer>
+      </div>
+    </div>
+  </mat-sidenav-container>
+</div>

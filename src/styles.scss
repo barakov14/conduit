@@ -1,0 +1,60 @@
+@use '@angular/material' as mat;
+@use '@angular/material-experimental' as matx;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$m3-dark-theme: matx.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: matx.$m3-cyan-palette,
+      tertiary: matx.$m3-blue-palette,
+    ),
+    typography: (
+      brand-family: 'Comic Sans',
+      bold-weight: 900,
+    ),
+    density: (
+      scale: -1,
+    ),
+  )
+);
+
+$m3-light-theme: matx.define-theme(
+  (
+    color: (
+      primary: matx.$m3-cyan-palette,
+      tertiary: matx.$m3-blue-palette,
+    ),
+    typography: (
+      brand-family: 'Comic Sans',
+      bold-weight: 900,
+    ),
+    density: (
+      scale: -1,
+    ),
+  )
+);
+
+.dark-theme {
+  @include mat.all-component-themes($m3-dark-theme);
+}
+
+.light-theme {
+  @include mat.all-component-themes($m3-light-theme);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  padding: 1.5rem;
+}
