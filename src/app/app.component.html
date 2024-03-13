@@ -8,9 +8,11 @@
       (switchMode)="onSwitchMode()"
       [isDarkMode]="isDarkMode"
     ></ui-header>
-    <mat-sidenav>
+    <!-- Контейнер с контентом -->
+    <div class="content-container">
       <router-outlet></router-outlet>
-    </mat-sidenav>
+    </div>
+    <!-- Подвал -->
     <div class="content-footer">
       <div class="footer">
         <ui-footer></ui-footer>

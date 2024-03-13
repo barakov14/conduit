@@ -25,7 +25,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu'
     NgIf,
     MatMenu,
     MatMenuTrigger,
-    MatMenuItem
+    MatMenuItem,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

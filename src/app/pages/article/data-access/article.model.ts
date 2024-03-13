@@ -1,6 +1,10 @@
 import {LoadingStatus} from '../../../core/data-access/loading-status.type'
 import {signalState} from '@ngrx/signals'
-import {Article, ArticleComments, ArticlesList} from '../../../core/api-types/article'
+import {
+  Article,
+  ArticleComments,
+  ArticlesList,
+} from '../../../core/api-types/article'
 import {Errors} from '../../../core/api-types/error'
 
 export type ArticleState = {
@@ -15,5 +19,5 @@ export const initialArticleState = signalState<ArticleState>({
   articlesList: null,
   article: null,
   articleComments: null,
-  error: null
+  error: null,
 })

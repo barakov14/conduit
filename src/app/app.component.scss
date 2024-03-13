@@ -4,9 +4,9 @@
   flex-direction: column;
 }
 
-.sidenav-container {
-  display: flex;
-  flex-direction: column;
+.content-container {
+  flex-grow: 1; /* Расширяется, чтобы занять все доступное пространство между header и footer */
+  padding: 1.5rem;
 }
 
 .content-footer {
