@@ -1,1 +1,61 @@
-<p>profile-edit works!</p>
+<div class="container" [formGroup]="formGroup" (ngSubmit)="onUpdate()">
+  <mat-card class="mat-card">
+    <mat-card-content>
+      <form class="settings-form">
+        <h1 class="form-title">Your settings</h1>
+        <div class="avatar-container">
+          <img
+            class="avatar"
+            src="https://kartinki.pics/uploads/posts/2022-03/thumbs/1646961318_2-kartinkin-net-p-kartinki-dlya-profilya-stim-2.jpg"
+            alt=""
+            [ngClass]="{
+              'avatar-dark': isPhotoHovered
+            }"
+            (click)="clickPhoto()"
+          />
+          <button
+            mat-icon-button
+            color="primary"
+            [ngClass]="{
+              'edit-button': isPhotoHovered,
+              'edit-button-invisible': !isPhotoHovered
+            }"
+            (click)="fileInput.click()"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <input
+            type="file"
+            #fileInput
+            style="display: none"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
+        </div>
+        <mat-form-field class="input-field">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="'username'" />
+        </mat-form-field>
+        <mat-form-field class="input-field">
+          <mat-label>Short bio about you</mat-label>
+          <textarea
+            matInput
+            placeholder="Ex. My name is Adilkhan, I'm 19..."
+            formControlName="'bio'"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field class="input-field">
+          <mat-label>Email</mat-label>
+          <input matInput type="password" formControlName="'email'" />
+        </mat-form-field>
+        <mat-form-field class="input-field">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="'password'" />
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="submit-btn">
+          Update settings
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -14,7 +14,7 @@
     </ng-template>
   </button>
   <span class="vertical-line"></span>
-  <button mat-icon-button [matMenuTriggerFor]="menu" class="avatar-button">
+  <button [matMenuTriggerFor]="menu" class="avatar-button">
     <img
       class="avatar-image"
       src="https://kartinki.pics/uploads/posts/2022-03/thumbs/1646961318_2-kartinkin-net-p-kartinki-dlya-profilya-stim-2.jpg"
@@ -23,7 +23,16 @@
   </button>
 </mat-toolbar>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>Profile</button>
-  <button mat-menu-item>Settings</button>
-  <button mat-menu-item>Logout</button>
+  <button mat-menu-item>
+    <mat-label>Profile</mat-label>
+    <mat-icon>person</mat-icon>
+  </button>
+  <button mat-menu-item routerLink="/settings">
+    <mat-label>Settings</mat-label>
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button mat-menu-item>
+    <mat-label>Logout</mat-label>
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
 </mat-menu>

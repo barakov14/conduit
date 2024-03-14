@@ -2,7 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  input,
   Input,
+  output,
   Output,
 } from '@angular/core'
 import {MatToolbar} from '@angular/material/toolbar'
@@ -11,6 +13,7 @@ import {MatIcon} from '@angular/material/icon'
 import {RouterLink} from '@angular/router'
 import {NgIf, NgOptimizedImage} from '@angular/common'
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu'
+import {MatLabel} from '@angular/material/form-field'
 
 @Component({
   selector: 'ui-header',
@@ -26,14 +29,15 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu'
     MatMenu,
     MatMenuTrigger,
     MatMenuItem,
+    MatLabel,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  @Output() switchMode = new EventEmitter<void>()
-  @Input() isDarkMode!: boolean
+  switchMode = output<void>()
+  isDarkMode = input<boolean>()
   onSwitchMode() {
     this.switchMode.emit()
   }

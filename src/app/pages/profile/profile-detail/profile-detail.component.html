@@ -1,1 +1,36 @@
-<p>profile-detail works!</p>
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <div class="information">
+        <img
+          class="information__avatar"
+          src="https://kartinki.pics/uploads/posts/2022-03/thumbs/1646961318_2-kartinkin-net-p-kartinki-dlya-profilya-stim-2.jpg"
+          alt=""
+        />
+        <h2 class="information__username">Adilkhan</h2>
+        <p class="font-thin font-xs" [innerHtml]="['adikbrkv@gmail.com']"></p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, quae!
+        </p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions style="position: relative">
+      <button
+        mat-button
+        color="primary"
+        style="position: absolute; right: 1rem"
+        routerLink="/settings"
+      >
+        <mat-icon>settings</mat-icon>
+        <mat-label>Edit profile</mat-label>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div class="mt-2">
+  <mat-tab-group animationDuration="200ms">
+    <mat-tab label="My Artciles"> My Artciles </mat-tab>
+    <mat-tab label="Favorited Articles"> Favorited Articles </mat-tab>
+  </mat-tab-group>
+</div>
