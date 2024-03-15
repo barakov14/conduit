@@ -22,7 +22,7 @@
         <button mat-raised-button color="primary" class="submit-btn">
           Sign Up
         </button>
-        <a routerLink="/login" class="mt-4 hover:opacity-70 transition-opacity">
+        <a (click)="onRedirectToLogin()" class="mt-4 hover:opacity-70 transition-opacity">
           Have an account?
         </a>
       </form>

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core'
+import {ChangeDetectionStrategy, Component, EventEmitter, inject, Output} from '@angular/core'
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms'
 import {MatButton} from '@angular/material/button'
 import {MatCard, MatCardContent} from '@angular/material/card'
@@ -27,9 +27,8 @@ import {NewUser} from '../../../api-types/auth'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterFormUiComponent {
-  private readonly authStore = inject(AuthStore)
-  public readonly loadingStatus = this.authStore.loadingStatus()
-  public readonly errorMessage = this.authStore.error()
+  @Output() redirectToLogin = new EventEmitter<void>()
+  @Output() register = new EventEmitter<NewUser>()
 
   public formGroup = new FormBuilder().group({
     username: new FormControl('', [Validators.required]),
@@ -46,7 +45,11 @@ export class RegisterFormUiComponent {
           password: this.formGroup.value.password as string,
         },
       }
-      this.authStore.register(data)
+      this.register.emit(data)
     }
+  }
+
+  onRedirectToLogin() {
+    this.redirectToLogin.emit()
   }
 }
