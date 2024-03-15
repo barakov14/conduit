@@ -6,22 +6,17 @@ import {NewUser} from '../../../api-types/auth'
 @Component({
   selector: 'register-container',
   standalone: true,
-  imports: [
-    RegisterFormUiComponent
-  ],
+  imports: [RegisterFormUiComponent],
   templateUrl: './register-container.component.html',
   styleUrl: './register-container.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterContainerComponent {
-
   private readonly router = inject(Router)
 
   onRedirectToLogin() {
     this.router.navigate(['/login'])
   }
 
-  onRegister(data: NewUser) {
-
-  }
+  onRegister(data: NewUser) {}
 }

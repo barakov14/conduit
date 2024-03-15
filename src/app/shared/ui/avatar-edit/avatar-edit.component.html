@@ -1,0 +1,29 @@
+<div class="avatar-container">
+  <img
+    class="avatar"
+    src="https://kartinki.pics/uploads/posts/2022-03/thumbs/1646961318_2-kartinkin-net-p-kartinki-dlya-profilya-stim-2.jpg"
+    alt=""
+    [ngClass]="{
+      'avatar-dark': isPhotoHovered
+    }"
+    (click)="clickPhoto()"
+  />
+  <button
+    mat-icon-button
+    color="primary"
+    [ngClass]="{
+      'edit-button': isPhotoHovered,
+      'edit-button-invisible': !isPhotoHovered
+    }"
+    (click)="fileInput.click()"
+  >
+    <mat-icon>edit</mat-icon>
+  </button>
+  <input
+    type="file"
+    #fileInput
+    style="display: none"
+    (change)="onFileSelected($event)"
+    accept="image/*"
+  />
+</div>

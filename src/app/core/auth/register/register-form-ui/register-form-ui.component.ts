@@ -1,5 +1,17 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, inject, Output} from '@angular/core'
-import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Output,
+} from '@angular/core'
+import {
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms'
 import {MatButton} from '@angular/material/button'
 import {MatCard, MatCardContent} from '@angular/material/card'
 import {MatFormField, MatLabel} from '@angular/material/form-field'
@@ -20,11 +32,11 @@ import {NewUser} from '../../../api-types/auth'
     MatInput,
     MatLabel,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './register-form-ui.component.html',
   styleUrl: './register-form-ui.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterFormUiComponent {
   @Output() redirectToLogin = new EventEmitter<void>()

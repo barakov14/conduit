@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+.mat-card {
+  width: 90%;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field,
+.mat-form-field input,
+.mat-form-field textarea {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+}

@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {ArticlesListComponent} from '../articles-list/articles-list.component'
 
 @Component({
   selector: 'articles-list-container',
   standalone: true,
-  imports: [],
+  imports: [ArticlesListComponent],
   templateUrl: './articles-list-container.component.html',
   styleUrl: './articles-list-container.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArticlesListContainerComponent {
-
-}
+export class ArticlesListContainerComponent {}

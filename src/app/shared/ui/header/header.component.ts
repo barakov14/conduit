@@ -14,6 +14,7 @@ import {RouterLink} from '@angular/router'
 import {NgIf, NgOptimizedImage} from '@angular/common'
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu'
 import {MatLabel} from '@angular/material/form-field'
+import {ArticleCreateButtonComponent} from '../../../pages/article/article-create/article-create-button/article-create-button.component'
 
 @Component({
   selector: 'ui-header',
@@ -30,6 +31,7 @@ import {MatLabel} from '@angular/material/form-field'
     MatMenuTrigger,
     MatMenuItem,
     MatLabel,
+    ArticleCreateButtonComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

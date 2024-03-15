@@ -1,10 +1,7 @@
 <mat-toolbar>
   <span class="cursor-pointer" routerLink="/">conduit</span>
   <span class="spacer"></span>
-  <button mat-button color="primary">
-    <mat-icon>edit</mat-icon>
-    <span>Write</span>
-  </button>
+  <article-create-button></article-create-button>
   <button mat-icon-button (click)="onSwitchMode()">
     <ng-container *ngIf="isDarkMode; else lightMode">
       <mat-icon>light_mode</mat-icon>

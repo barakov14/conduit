@@ -12,13 +12,3 @@ export interface NewUser {
     password: string
   }
 }
-
-export interface GetCurrentUser {
-  user: {
-    email: string
-    token: string
-    username: string
-    bio: string
-    image: string
-  }
-}

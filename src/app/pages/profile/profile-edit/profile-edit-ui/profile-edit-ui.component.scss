@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+.mat-card {
+  width: 90%;
+  max-width: 400px;
+  padding: 2rem;
+}
+
+avatar-edit {
+  margin-bottom: 2rem;
+  align-self: center;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field,
+.mat-form-field input,
+.mat-form-field textarea {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+}

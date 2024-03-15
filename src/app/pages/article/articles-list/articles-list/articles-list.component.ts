@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {ArticlesCardComponent} from '../articles-card/articles-card.component'
+import {FeedTabsComponent} from '../../../../shared/ui/feed-tabs/feed-tabs.component'
 
 @Component({
   selector: 'articles-list',
   standalone: true,
-  imports: [],
+  imports: [ArticlesCardComponent, FeedTabsComponent],
   templateUrl: './articles-list.component.html',
   styleUrl: './articles-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArticlesListComponent {
-
-}
+export class ArticlesListComponent {}

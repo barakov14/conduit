@@ -1,44 +1,23 @@
 <div class="container">
-  <form class="form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <h1>Create an article</h1>
-    <mat-form-field>
-      <mat-label>Title</mat-label>
-      <input matInput formControlName="title" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Description</mat-label>
-      <textarea matInput formControlName="description"></textarea>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Body</mat-label>
-      <textarea matInput formControlName="body"></textarea>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Enter tags</mat-label>
-      <mat-chip-grid #chipGrid aria-label="Enter tags">
-        @for (tag of tags; track $index) {
-          <mat-chip-row
-            (removed)="remove(tag)"
-            [editable]="true"
-            (edited)="edit(tag, $event)"
-            [aria-description]="'press enter to edit ' + tag['name']"
-          >
-            {{ tag['name'] }}
-            <button matChipRemove [attr.aria-label]="'remove ' + tag['name']">
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip-row>
-        }
-        <input
-          placeholder="New fruit..."
-          [matChipInputFor]="chipGrid"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="add($event)"
-          required
-        />
-      </mat-chip-grid>
-    </mat-form-field>
-    <button mat-raised-button color="primary">Publish article</button>
-  </form>
+  <mat-card class="mat-card">
+    <mat-card-content class="mat-card-content">
+      <form class="form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <h1>Create an article</h1>
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Body</mat-label>
+          <textarea matInput formControlName="body"></textarea>
+        </mat-form-field>
+        <input-tags (tagsChanged)="onTagsChange($event)"> </input-tags>
+        <button mat-raised-button color="primary">Publish article</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

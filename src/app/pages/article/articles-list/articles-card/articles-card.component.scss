@@ -1,0 +1,25 @@
+.author {
+  display: flex;
+  align-items: center;
+  .author__image {
+    width: 4rem;
+    margin-right: 0.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .author__info {
+    display: flex;
+    flex-direction: column;
+    .author__name {
+      color: rgb(30, 180, 86);
+    }
+    .author__name:hover {
+      opacity: 0.7;
+      transition: 0.2s ease-in;
+    }
+    .date {
+      opacity: 0.6;
+      font-size: 0.6rem;
+    }
+  }
+}

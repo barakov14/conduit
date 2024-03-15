@@ -1,0 +1,15 @@
+.avatar {
+  max-width: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .information__text {
+    max-width: 300px;
+  }
+}

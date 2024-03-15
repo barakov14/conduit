@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core'
 import {MatButton} from '@angular/material/button'
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'
 import {MatIcon} from '@angular/material/icon'
@@ -18,12 +18,10 @@ import {RouterLink} from '@angular/router'
     MatLabel,
     MatTab,
     MatTabGroup,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './profile-view.component.html',
   styleUrl: './profile-view.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileViewComponent {
-
-}
+export class ProfileViewComponent {}

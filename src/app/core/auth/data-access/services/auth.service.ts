@@ -1,7 +1,8 @@
 import {inject, Injectable} from '@angular/core'
 import {ApiService} from '../../../http/api.service'
-import {GetCurrentUser, LoginUser, NewUser} from '../../../api-types/auth'
+import {LoginUser, NewUser} from '../../../api-types/auth'
 import {Observable} from 'rxjs'
+import {GetCurrentUser} from '../../../api-types/user'
 
 @Injectable({providedIn: 'root'})
 export class AuthService {

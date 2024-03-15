@@ -1,1 +1,26 @@
-<p>input-tags works!</p>
+<mat-form-field>
+  <mat-label>Enter tags</mat-label>
+  <mat-chip-grid #chipGrid aria-label="Enter tags">
+    @for (tag of tags; track $index) {
+      <mat-chip-row
+        (removed)="remove(tag)"
+        [editable]="true"
+        (edited)="edit(tag, $event)"
+        [aria-description]="'press enter to edit ' + tag['name']"
+      >
+        {{ tag['name'] }}
+        <button matChipRemove [attr.aria-label]="'remove ' + tag['name']">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    }
+    <input
+      placeholder="New tag..."
+      [matChipInputFor]="chipGrid"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="addOnBlur"
+      (matChipInputTokenEnd)="add($event)"
+      required
+    />
+  </mat-chip-grid>
+</mat-form-field>

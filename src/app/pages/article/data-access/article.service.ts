@@ -8,6 +8,7 @@ import {
   DeleteCommentFromArticle,
   PublishCommentBody,
   PublishCommentToArticle,
+  Tags,
   UpdateArticle,
   UpdateArticleRequest,
 } from '../../../core/api-types/article'
@@ -17,9 +18,10 @@ import {Observable} from 'rxjs'
 export class ArticleService {
   private readonly apiService = inject(ApiService)
 
-  public loadTags() {
-
+  public loadTags(): Observable<Tags[]> {
+    return this.apiService.get<Tags[]>('/tags')
   }
+
   public loadArticles(): Observable<ArticlesList> {
     return this.apiService.get<ArticlesList>('/articles')
   }

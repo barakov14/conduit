@@ -1,13 +1,34 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core'
-import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+} from '@angular/core'
+import {
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms'
 import {MatButton} from '@angular/material/button'
-import {MatChipEditedEvent, MatChipGrid, MatChipInput, MatChipInputEvent, MatChipRow} from '@angular/material/chips'
+import {
+  MatChipEditedEvent,
+  MatChipGrid,
+  MatChipInput,
+  MatChipInputEvent,
+  MatChipRow,
+} from '@angular/material/chips'
 import {MatFormField, MatLabel} from '@angular/material/form-field'
 import {MatIcon} from '@angular/material/icon'
 import {MatInput} from '@angular/material/input'
 import {COMMA, ENTER} from '@angular/cdk/keycodes'
 import {LiveAnnouncer} from '@angular/cdk/a11y'
 import {CreateArticle, Tags} from '../../../../core/api-types/article'
+import {InputTagsComponent} from '../../../../shared/ui/input-tags/input-tags.component'
+import {MatCard, MatCardContent} from '@angular/material/card'
 
 @Component({
   selector: 'article-create-ui',
@@ -22,24 +43,25 @@ import {CreateArticle, Tags} from '../../../../core/api-types/article'
     MatIcon,
     MatInput,
     MatLabel,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputTagsComponent,
+    MatCard,
+    MatCardContent,
   ],
   templateUrl: './article-create-ui.component.html',
   styleUrl: './article-create-ui.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleCreateUiComponent {
-  addOnBlur = true
-  readonly separatorKeysCodes: readonly number[] = [ENTER, COMMA]
-  tags: Tags[] = []
-
-  private readonly announcer = inject(LiveAnnouncer)
+  @Output() createArticle = new EventEmitter<CreateArticle>()
 
   public formGroup = new FormBuilder().group({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     body: new FormControl('', [Validators.required]),
   })
+
+  tags!: Tags[]
 
   onSubmit(): void {
     if (this.formGroup.valid) {
@@ -51,37 +73,11 @@ export class ArticleCreateUiComponent {
           tagList: this.tags.map((tag) => tag['name']),
         },
       }
-      console.log(data)
+      this.createArticle.emit(data)
     }
   }
 
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim()
-    if (value) {
-      this.tags.push({name: value})
-    }
-    event.chipInput!.clear()
-  }
-
-  remove(tag: Tags): void {
-    const index = this.tags.indexOf(tag)
-    if (index !== -1) {
-      this.tags.splice(index, 1)
-      // Обратитесь к свойству через квадратные скобки
-      this.announcer.announce(`Removed ${tag['name']}`)
-    }
-  }
-
-  edit(tag: Tags, event: MatChipEditedEvent): void {
-    const value = (event.value || '').trim()
-
-    // Если значение пустое, удаляем тег
-    if (!value) {
-      this.remove(tag)
-      return
-    }
-
-    // Редактируем значение тега
-    tag['name'] = value
+  onTagsChange(tags: Tags[]) {
+    this.tags = tags
   }
 }

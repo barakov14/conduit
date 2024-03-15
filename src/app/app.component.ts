@@ -4,7 +4,6 @@ import {HeaderComponent} from './shared/ui/header/header.component'
 import {FooterComponent} from './shared/ui/footer/footer.component'
 import {MatSidenav, MatSidenavContainer} from '@angular/material/sidenav'
 import {NgClass} from '@angular/common'
-import {ArticlesListComponent} from './pages/article/articles-list/articles-list.component'
 
 @Component({
   selector: 'app-root',
@@ -16,7 +15,6 @@ import {ArticlesListComponent} from './pages/article/articles-list/articles-list
     MatSidenavContainer,
     NgClass,
     MatSidenav,
-    ArticlesListComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -28,18 +26,5 @@ export class AppComponent {
 
   onSwitchMode() {
     this.isDarkMode = !this.isDarkMode
-    console.log(/LOVE/i.test('I love javascript'))
-
-    const obj = {
-      hello() {
-        console.log('heelo')
-      }
-    }
-    console.log("We will, we will rock you".match(/we/gi))
   }
-}
-
-export interface TShirt {
-  color: string
-  size: string
 }

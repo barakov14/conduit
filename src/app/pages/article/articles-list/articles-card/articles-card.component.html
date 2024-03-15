@@ -1,1 +1,27 @@
-<p>articles-card works!</p>
+<mat-card class="article-preview">
+  <mat-card-content class="article-meta">
+    <div class="author">
+      <a href="/profile/eric-simons">
+        <img class="author__image" src="http://i.imgur.com/Qr71crq.jpg"/>
+      </a>
+      <div class="author__info text">
+        <a href="/profile/eric-simons" class="author__name">Eric Simons</a>
+        <span class="date">January 20th</span>
+      </div>
+    </div>
+
+    <button mat-icon-button color="primary" class="float-end">
+      <mat-icon matBadge="15" matBadgeColor="warn">favorite</mat-icon>
+    </button>
+
+    <a href="/article/how-to-build-webapps-that-scale" class="preview-link">
+      <h1>How to build webapps that scale</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis commodi cumque delectus ducimus ipsum, natus qui quia. Dolorem, eligendi, quasi.</p>
+      <button mat-button>Read more...</button>
+      <mat-chip-set class="float-end">
+        <mat-chip>Orange</mat-chip>
+        <mat-chip>Apple</mat-chip>
+      </mat-chip-set>
+    </a>
+  </mat-card-content>
+</mat-card>
