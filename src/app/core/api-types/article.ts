@@ -67,3 +67,7 @@ export interface DeleteCommentFromArticle {
   slug: string
   id: number
 }
+
+export interface Tags {
+  [key: string]: string
+}

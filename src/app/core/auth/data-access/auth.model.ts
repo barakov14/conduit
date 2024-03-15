@@ -12,5 +12,5 @@ export const authInitialState: AuthState = {
   currentUser: null,
   loadingStatus: 'init',
   error: null,
-  loggedIn: false,
+  loggedIn: localStorage.getItem('jwtToken') !== null,
 }

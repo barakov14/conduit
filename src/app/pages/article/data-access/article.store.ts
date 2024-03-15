@@ -19,14 +19,21 @@ export const ArticleStore = signalStore(
   {providedIn: 'root'},
   withState(initialArticleState),
   withMethods((store, articleService = inject(ArticleService)) => ({
-    loadArticles: rxMethod<string>(
+/*    loadTags: rxMethod<void>(
+      pipe(
+        switchMap(() =>)
+      )
+    ),*/
+    loadArticles: rxMethod<void>(
       pipe(
         tap(() => patchState(store, {loadingStatus: 'loading'})),
-        switchMap((endpoint) => {
-          return articleService.loadArticles(endpoint).pipe(
+        switchMap(() => {
+          return articleService.loadArticles().pipe(
             tapResponse({
-              next: (articlesList: ArticlesList) =>
+              next: (articlesList: ArticlesList) =>{
                 patchState(store, {articlesList, loadingStatus: 'loaded'}),
+                console.log(articlesList)
+              },
               error: (error: Errors) =>
                 patchState(store, {error, loadingStatus: 'error'}),
             }),

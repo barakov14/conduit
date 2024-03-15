@@ -28,5 +28,18 @@ export class AppComponent {
 
   onSwitchMode() {
     this.isDarkMode = !this.isDarkMode
+    console.log(/LOVE/i.test('I love javascript'))
+
+    const obj = {
+      hello() {
+        console.log('heelo')
+      }
+    }
+    console.log("We will, we will rock you".match(/we/gi))
   }
+}
+
+export interface TShirt {
+  color: string
+  size: string
 }

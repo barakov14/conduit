@@ -16,8 +16,12 @@ import {Observable} from 'rxjs'
 @Injectable({providedIn: 'root'})
 export class ArticleService {
   private readonly apiService = inject(ApiService)
-  public loadArticles(endpoint: string): Observable<ArticlesList> {
-    return this.apiService.get<ArticlesList>('/articles' + endpoint)
+
+  public loadTags() {
+
+  }
+  public loadArticles(): Observable<ArticlesList> {
+    return this.apiService.get<ArticlesList>('/articles')
   }
 
   public createArticle(data: CreateArticle): Observable<ArticlesList> {
