@@ -14,7 +14,7 @@ export type ArticleState = {
   articleComments: ArticleComments | null | undefined
   error: Errors | null | undefined
 }
-export const initialArticleState = signalState<ArticleState>({
+export const articleInitialState = signalState<ArticleState>({
   loadingStatus: 'init',
   articlesList: null,
   article: null,

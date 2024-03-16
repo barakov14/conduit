@@ -1,5 +1,5 @@
 export interface Errors {
   errors: {
-    body: string[]
+    [key: string]: string
   }
 }

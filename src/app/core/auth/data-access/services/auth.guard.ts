@@ -1,11 +1,10 @@
 import {inject} from '@angular/core'
 import {map, Observable, take} from 'rxjs'
 import {Router, UrlTree} from '@angular/router'
-
-import {LocalStorageJwtService} from './local-storage-jwt.service'
+import {CookieJwtService} from './cookie-jwt.service'
 
 export const authGuard = (): Observable<boolean | UrlTree> => {
-  const storage = inject(LocalStorageJwtService)
+  const storage = inject(CookieJwtService)
   const router = inject(Router)
 
   return storage.getItem().pipe(

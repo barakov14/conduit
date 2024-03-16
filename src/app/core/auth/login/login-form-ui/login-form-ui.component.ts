@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  inject,
   Output,
 } from '@angular/core'
 import {
@@ -17,7 +16,6 @@ import {MatCard, MatCardContent} from '@angular/material/card'
 import {MatFormField, MatLabel} from '@angular/material/form-field'
 import {MatInput} from '@angular/material/input'
 import {RouterLink} from '@angular/router'
-import {AuthStore} from '../../data-access/auth.store'
 import {LoginUser} from '../../../api-types/auth'
 
 @Component({

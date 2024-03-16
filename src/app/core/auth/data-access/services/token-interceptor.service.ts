@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http'
 import {catchError, Observable, throwError} from 'rxjs'
 import {inject} from '@angular/core'
-import {LocalStorageJwtService} from './local-storage-jwt.service'
+import {CookieJwtService} from './cookie-jwt.service'
 import {Router} from '@angular/router'
 
 export const tokenInterceptor = (
@@ -15,8 +15,8 @@ export const tokenInterceptor = (
 ): Observable<HttpEvent<any>> => {
   let token: string | null = null
   const router = inject(Router)
-  const localStorageJwtService = inject(LocalStorageJwtService)
-  inject(LocalStorageJwtService)
+  const cookieJwtService = inject(CookieJwtService)
+  inject(CookieJwtService)
     .getItem()
     .subscribe((t) => (token = t))
 
@@ -31,7 +31,7 @@ export const tokenInterceptor = (
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
         router.navigate(['/login'])
-        localStorageJwtService.removeItem()
+        cookieJwtService.removeItem()
       }
       return throwError(() => error)
     }),
