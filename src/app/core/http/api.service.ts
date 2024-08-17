@@ -1,13 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { API_URL, STORAGE_URL } from './api-url.token';
+import { API_URL } from './api-url.token';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = inject(API_URL);
-  private readonly storageUrl = inject(STORAGE_URL);
+  // private readonly storageUrl = inject(STORAGE_URL);
 
   public get<T>(
     url: string,
@@ -42,7 +42,7 @@ export class ApiService {
     });
   }
 
-  public uploadImage<T, D>(file: File): Observable<T> {
+  /*public uploadImage<T, D>(file: File): Observable<T> {
     const formData = new FormData();
     formData.append('image', file);
 
@@ -54,7 +54,7 @@ export class ApiService {
 
     // Загрузка файла на сервер
     return this.http.post<T>(`${this.storageUrl}`, formData, options);
-  }
+  }*/
 
   private get headers(): HttpHeaders {
     const headersConfig = {
