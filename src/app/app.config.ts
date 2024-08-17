@@ -4,12 +4,24 @@ import {provideClientHydration, withHttpTransferCacheOptions} from '@angular/pla
 import {provideRouter} from '@angular/router'
 import {provideHttpClient, withInterceptors} from '@angular/common/http'
 import {AuthService} from './core/auth/services/auth.service'
-import {tap} from 'rxjs'
+import {EMPTY, Observable} from 'rxjs'
 import {authInterceptor} from './core/interceptors/auth.interceptor'
 import {API_URL} from './core/http/api-url.token'
 import {environment} from '../environments/environment.development'
 import {isPlatformBrowser} from '@angular/common'
+import {LocalStorageJwtService} from './core/auth/services/local-storage-jwt.service'
+import {UserDTO} from './shared/models/user.model'
 
+
+
+export function initAuth(): () => Observable<UserDTO> {
+  const platformId = inject(PLATFORM_ID)
+  const jwtService = inject(LocalStorageJwtService)
+  const authService = inject(AuthService)
+  return () => {
+    return isPlatformBrowser(platformId) && !!jwtService.getToken() ? authService.getCurrentUser() : EMPTY
+  }
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,17 +32,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     {
       provide: APP_INITIALIZER,
-      useFactory: () => {
-        const platformId = inject(PLATFORM_ID)
-        if(isPlatformBrowser(platformId) && !!localStorage.getItem('jwtToken')) {
-          const authService = inject(AuthService)
-          return () => authService.getCurrentUser().pipe(
-            tap(userData => authService.setUserData(userData))
-          )
-        }
-        return () => {}
-      },
-      deps: [AuthService],
+      useFactory: initAuth,
+      deps: [AuthService, LocalStorageJwtService],
       multi: true
     },
     {
