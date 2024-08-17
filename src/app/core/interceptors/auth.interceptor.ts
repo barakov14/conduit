@@ -9,13 +9,6 @@ export const authInterceptor = (
   next: HttpHandlerFn,
 ): Observable<HttpEvent<any>> => {
   const authService = inject(AuthService)
-  const user$ = toObservable(authService.selectUser)
 
-  return user$.pipe(
-    filter((user) => !!user),
-    switchMap(() => {
-      console.log('Requesting:', request.url)
-      return next(request)
-    }),
-  )
+  return authService.selectLoggedIn() ? next(request) : next(request)
 }

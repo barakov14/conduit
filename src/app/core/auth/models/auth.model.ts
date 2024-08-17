@@ -17,4 +17,5 @@ export interface AuthState {
   authStatus: LoadingStatus
   user: UserCredentials | null | undefined
   error: ErrorModel | null
+  loggedIn: boolean
 }

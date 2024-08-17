@@ -40,12 +40,12 @@ export const appConfig: ApplicationConfig = {
       }),
     ),
     provideHttpClient(withInterceptors([authInterceptor])),
-/*    {
+    {
       provide: APP_INITIALIZER,
       useFactory: initAuth,
       deps: [AuthService, LocalStorageJwtService],
       multi: true,
-    },*/
+    },
     {
       provide: API_URL,
       useValue: environment.api_url,

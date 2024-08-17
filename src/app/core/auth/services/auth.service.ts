@@ -18,12 +18,14 @@ export class AuthService {
     authStatus: 'init',
     user: null,
     error: null,
+    loggedIn: !!this.jwtService.getToken()
   })
 
   // SELECTORS
 
   public selectAuthStatus = computed(() => this.authState().authStatus)
   public selectUser = computed(() => this.authState().user)
+  public selectLoggedIn = computed(() => this.authState().loggedIn)
   public selectError = computed(() => this.authState().error)
 
   login(data: ILoginUser) {
