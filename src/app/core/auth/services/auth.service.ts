@@ -1,32 +1,51 @@
-import {inject, Injectable, signal} from '@angular/core'
-import {UserDTO} from '../../../shared/models/user.model'
+import {computed, inject, Injectable, signal} from '@angular/core'
+import {UserCredentials} from '../../../shared/models/user.model'
 import {from, Observable, switchMap, tap} from 'rxjs'
 import {ApiService} from '../../http/api.service'
+import {AuthState, ILoginUser, INewUser} from '../models/auth.model'
+import {Router} from '@angular/router'
+import {LocalStorageJwtService} from './local-storage-jwt.service'
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
   private readonly httpClient = inject(ApiService)
+  private readonly jwtService = inject(LocalStorageJwtService)
+  private readonly router = inject(Router)
 
-  user = signal<UserDTO | null>(null)
+  // STATE
 
-  login(data: any) {}
+  public readonly authState = signal<AuthState>({
+    authStatus: 'init',
+    user: null,
+    error: null,
+  })
 
-  register(data: any) {}
+  // SELECTORS
 
-  getCurrentUser(): Observable<UserDTO> {
-    return this.httpClient.get<UserDTO>('/user').pipe(
-      tap({
-        next: (res) => {
-          this.setUserData(res)
-        },
-        error: () => {
-          console.log('error')
-        }
-      }))
+  public selectAuthStatus = computed(() => this.authState().authStatus)
+  public selectUser = computed(() => this.authState().user)
+  public selectError = computed(() => this.authState().error)
+
+  login(data: ILoginUser) {
+    return this.httpClient
+      .post<UserCredentials, ILoginUser>('/user/login', data)
+      .pipe(tap((res) => this.saveJwtTokenAndRedirect(res.user.token)))
   }
 
+  register(data: INewUser) {
+    return this.httpClient
+      .post<UserCredentials, INewUser>('/user', data)
+      .pipe(tap((res) => this.saveJwtTokenAndRedirect(res.user.token)))
+  }
 
-  setUserData(data: UserDTO) {
-    this.user.set(data)
+  getCurrentUser(): Observable<UserCredentials> {
+    return this.httpClient
+      .get<UserCredentials>('/user')
+      .pipe(tap((res) => this.saveJwtTokenAndRedirect(res.user.token)))
+  }
+
+  private saveJwtTokenAndRedirect(jwtToken: string) {
+    this.jwtService.saveToken(jwtToken)
+    this.router.navigateByUrl('/')
   }
 }

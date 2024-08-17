@@ -1,13 +1,11 @@
 import {DeepReadonly} from '../../core/utils/deep-readonly'
 
-export type UserDTO = DeepReadonly<{
+export type UserCredentials = DeepReadonly<{
   user: {
-    email: string;
-    token: string;
-    username: string;
-    bio: string;
-    image: string;
+    email: string
+    token: string
+    username: string
+    bio: string
+    image: string
   }
 }>
-
-
