@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit{
   private readonly articleService = inject(ArticleService)
   private readonly destroyRef = inject(DestroyRef)
 
-  readonly articles = this.articleService.selectArticles
+  readonly selectArticles = this.articleService.selectArticles
 
 
   ngOnInit() {

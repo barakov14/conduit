@@ -9,11 +9,17 @@
   <div class="container page">
     <div class="row">
       <div class="col-md-9">
-        <mc-feed-toggle></mc-feed-toggle>
+        @if(selectArticles(); as selectArticles) {
+          <mc-feed-toggle></mc-feed-toggle>
 
-        <mc-article-preview></mc-article-preview>
+          @for(article of selectArticles.articles; track article.slug) {
+            <mc-article-preview
+              [article]="article"
+            />
+          }
 
-        <mc-pagination></mc-pagination>
+          <mc-pagination></mc-pagination>
+        }
       </div>
 
       <div class="col-md-3">

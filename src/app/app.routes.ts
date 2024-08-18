@@ -15,4 +15,11 @@ export const routes: Routes = [
         (c) => c.HomeComponent,
       ),
   },
+  {
+    path: 'edit',
+    loadComponent: () =>
+      import('./modules/article/containers/editor/editor.component').then(
+        (c) => c.EditorComponent,
+      ),
+  },
 ]
