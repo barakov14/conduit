@@ -1,0 +1,38 @@
+<nav class="navbar navbar-light">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">conduit</a>
+    <ul class="nav navbar-nav pull-xs-right">
+      <li class="nav-item">
+        <!-- Add "active" class when you're on that page" -->
+        <a class="nav-link active" routerLink="/">Home</a>
+      </li>
+
+      <ng-container *userAuthenticated="false">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/auth">Sign in</a>
+        </li>
+      </ng-container>
+
+      <ng-container *userAuthenticated="true">
+        <li class="nav-item">
+          <a class="nav-link" href="/editor">
+            <i class="ion-compose"></i>&nbsp;New Article
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/settings">
+            <i class="ion-gear-a"></i>&nbsp;Settings
+          </a>
+        </li>
+        <li class="nav-item">
+          @if (currentUser()?.user; as user) {
+            <a class="nav-link" href="/profile/eric-simons">
+              <img [src]="user.image" class="user-pic" />
+              {{ user.username }}
+            </a>
+          }
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</nav>
