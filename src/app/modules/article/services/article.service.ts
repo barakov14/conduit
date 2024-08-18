@@ -14,7 +14,7 @@ export class ArticleService {
     error: null
   })
 
-  selectArticle = computed(() => this.authState().articles)
+  selectArticles = computed(() => this.authState().articles)
   selectArticleErrors = computed(() => this.authState().error)
 
   fetchArticles() {
