@@ -8,4 +8,11 @@ export const routes: Routes = [
         (c) => c.AuthComponent,
       ),
   },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./modules/article/containers/home/home.component').then(
+        (c) => c.HomeComponent,
+      ),
+  },
 ]

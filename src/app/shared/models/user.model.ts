@@ -9,3 +9,10 @@ export type UserCredentials = DeepReadonly<{
     image: string
   }
 }>
+
+export type User = DeepReadonly<{
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
+}>
