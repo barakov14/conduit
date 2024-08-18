@@ -4,11 +4,11 @@ import {
   DestroyRef,
   effect,
   inject,
-  OnInit,
   PLATFORM_ID,
+  signal,
 } from '@angular/core'
 import {AuthService} from '../../services/auth.service'
-import {takeUntilDestroyed, toSignal} from '@angular/core/rxjs-interop'
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop'
 import {
   FormBuilder,
   FormControl,
@@ -17,8 +17,8 @@ import {
   Validators,
 } from '@angular/forms'
 import {isPlatformBrowser} from '@angular/common'
-import {exhaustMap, filter, map, of, tap} from 'rxjs'
-import {ActivatedRoute, Router, RouterLink} from '@angular/router'
+import {exhaustMap, filter, of, tap} from 'rxjs'
+import {RouterLink} from '@angular/router'
 import {ILoginUser, INewUser} from '../../models/auth.model'
 
 @Component({
@@ -31,33 +31,23 @@ import {ILoginUser, INewUser} from '../../models/auth.model'
 })
 export class AuthComponent {
   private readonly authService = inject(AuthService)
-  private readonly route = inject(ActivatedRoute)
-  private readonly router = inject(Router)
 
-  private mode = toSignal<string>(
-    this.route.queryParams.pipe(map((param) => param['mode'])),
-  )
+  isLoginMode = signal<boolean>(true)
 
   private readonly destroyRef = inject(DestroyRef)
   private readonly platformId = inject(PLATFORM_ID)
 
   authForm: FormGroup<{
-    email: FormControl<string | null>,
-    password: FormControl<string | null>,
+    email: FormControl<string | null>
+    password: FormControl<string | null>
     username?: FormControl<string | null>
   }>
 
   constructor() {
-
-    this.router.navigate(['/auth'], {
-      queryParams: {mode: 'login'},
-    })
-
     this.authForm = new FormBuilder().group({
       email: new FormControl('', [
         Validators.required,
         Validators.email,
-        Validators.minLength(6),
       ]),
       password: new FormControl('', [
         Validators.required,
@@ -67,23 +57,26 @@ export class AuthComponent {
 
     if (isPlatformBrowser(this.platformId)) {
       effect(() => {
-        const mode = this.mode()
-
-        if (mode === 'register') {
+        // Проверяем какой режим и нету ли контрол с username в форме. если нету, то добавляем контрол, при обратном наоборот
+        if (this.isLoginMode() && this.authForm.contains('username')) {
+          this.authForm.removeControl('username')
+        } else if (!this.isLoginMode() && !this.authForm.contains('username')) {
           this.authForm.addControl(
             'username',
             new FormControl('', [Validators.required, Validators.minLength(3)]),
           )
-        } else if (mode === 'login') {
-          this.authForm.removeControl('username')
         }
       })
     }
   }
 
+  changeMode() {
+    this.authForm.reset()
+    this.isLoginMode.update((mode) => !mode)
+  }
+
   submit() {
     if (isPlatformBrowser(this.platformId)) {
-      console.log('submit')
       of(this.authForm.getRawValue())
         .pipe(
           tap(() =>
@@ -95,9 +88,9 @@ export class AuthComponent {
           takeUntilDestroyed(this.destroyRef),
           filter(() => this.authForm.valid),
           exhaustMap((formData) =>
-            this.mode() === 'register'
-              ? this.authService.register(formData as INewUser)
-              : this.authService.login(formData as ILoginUser),
+              this.isLoginMode()
+                ? this.authService.login({'user': formData} as ILoginUser)
+                : this.authService.register({'user': formData} as INewUser)
           ),
         )
         .subscribe({

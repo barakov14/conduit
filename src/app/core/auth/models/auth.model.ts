@@ -3,14 +3,18 @@ import {ErrorModel} from '../../../shared/models/error.model'
 import {LoadingStatus} from '../../../shared/types/loading-status.type'
 
 export interface ILoginUser {
-  email: string
-  password: string
+  user : {
+    email: string
+    password: string
+  }
 }
 
 export interface INewUser {
-  username: string
-  email: string
-  password: string
+  user : {
+    username: string
+    email: string
+    password: string
+  }
 }
 
 export interface AuthState {

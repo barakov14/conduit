@@ -10,7 +10,8 @@ export class LocalStorageJwtService {
   }
 
   getToken() {
-    if(isPlatformBrowser(this.platformId)) return localStorage.getItem('jwtToken')
+    if (isPlatformBrowser(this.platformId))
+      return localStorage.getItem('jwtToken')
     return null
   }
 

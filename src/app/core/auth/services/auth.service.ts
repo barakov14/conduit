@@ -18,7 +18,7 @@ export class AuthService {
     authStatus: 'init',
     user: null,
     error: null,
-    loggedIn: !!this.jwtService.getToken()
+    loggedIn: !!this.jwtService.getToken(),
   })
 
   // SELECTORS
@@ -30,13 +30,13 @@ export class AuthService {
 
   login(data: ILoginUser) {
     return this.httpClient
-      .post<UserCredentials, ILoginUser>('/user/login', data)
+      .post<UserCredentials, ILoginUser>('/users/login', data)
       .pipe(tap((res) => this.saveJwtTokenAndRedirect(res.user.token)))
   }
 
   register(data: INewUser) {
     return this.httpClient
-      .post<UserCredentials, INewUser>('/user', data)
+      .post<UserCredentials, INewUser>('/users', data)
       .pipe(tap((res) => this.saveJwtTokenAndRedirect(res.user.token)))
   }
 

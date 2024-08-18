@@ -1,14 +1,30 @@
-import {HttpEvent, HttpHandlerFn, HttpRequest} from '@angular/common/http'
-import {filter, Observable, switchMap, tap} from 'rxjs'
+import {HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest} from '@angular/common/http'
+import {catchError, Observable, throwError} from 'rxjs'
 import {inject} from '@angular/core'
-import {toObservable} from '@angular/core/rxjs-interop'
-import {AuthService} from '../auth/services/auth.service'
+import {LocalStorageJwtService} from '../auth/services/local-storage-jwt.service'
 
 export const authInterceptor = (
   request: HttpRequest<any>,
   next: HttpHandlerFn,
 ): Observable<HttpEvent<any>> => {
-  const authService = inject(AuthService)
+  const jwtService = inject(LocalStorageJwtService)
 
-  return authService.selectLoggedIn() ? next(request) : next(request)
+  const token = jwtService.getToken()
+
+  if(token) {
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  return next(request).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401) {
+        jwtService.removeToken();
+      }
+      return throwError(() => error);
+    })
+  );
 }
