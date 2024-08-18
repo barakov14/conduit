@@ -1,4 +1,9 @@
-import {HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest} from '@angular/common/http'
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandlerFn,
+  HttpRequest,
+} from '@angular/common/http'
 import {catchError, Observable, throwError} from 'rxjs'
 import {inject} from '@angular/core'
 import {LocalStorageJwtService} from '../auth/services/local-storage-jwt.service'
@@ -11,20 +16,20 @@ export const authInterceptor = (
 
   const token = jwtService.getToken()
 
-  if(token) {
+  if (token) {
     request = request.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
       },
-    });
+    })
   }
 
   return next(request).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
-        jwtService.removeToken();
+        jwtService.removeToken()
       }
-      return throwError(() => error);
-    })
-  );
+      return throwError(() => error)
+    }),
+  )
 }

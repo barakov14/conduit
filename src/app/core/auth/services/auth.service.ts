@@ -18,7 +18,7 @@ export class AuthService {
     authStatus: 'init',
     user: null,
     error: null,
-    loggedIn: !!this.jwtService.getToken(),
+    loggedIn: false,
   })
 
   // SELECTORS
@@ -31,23 +31,40 @@ export class AuthService {
   login(data: ILoginUser) {
     return this.httpClient
       .post<UserCredentials, ILoginUser>('/users/login', data)
-      .pipe(tap((res) => this.saveJwtTokenAndRedirect(res.user.token)))
+      .pipe(
+        tap((userCredentials) =>
+          this.saveUserAndRedirect(userCredentials.user.token, userCredentials),
+        ),
+      )
   }
 
   register(data: INewUser) {
     return this.httpClient
       .post<UserCredentials, INewUser>('/users', data)
-      .pipe(tap((res) => this.saveJwtTokenAndRedirect(res.user.token)))
+      .pipe(
+        tap((userCredentials) =>
+          this.saveUserAndRedirect(userCredentials.user.token, userCredentials),
+        ),
+      )
   }
 
   getCurrentUser(): Observable<UserCredentials> {
     return this.httpClient
       .get<UserCredentials>('/user')
-      .pipe(tap((res) => this.saveJwtTokenAndRedirect(res.user.token)))
+      .pipe(
+        tap((userCredentials) =>
+          this.saveUserAndRedirect(userCredentials.user.token, userCredentials),
+        ),
+      )
   }
 
-  private saveJwtTokenAndRedirect(jwtToken: string) {
+  private saveUserAndRedirect(jwtToken: string, user: UserCredentials) {
     this.jwtService.saveToken(jwtToken)
     this.router.navigateByUrl('/')
+    this.authState.update((state) => ({
+      ...state,
+      user,
+      loggedIn: true,
+    }))
   }
 }

@@ -3,9 +3,11 @@ import {
   Component,
   DestroyRef,
   effect,
+  ElementRef,
   inject,
   PLATFORM_ID,
   signal,
+  viewChild,
 } from '@angular/core'
 import {AuthService} from '../../services/auth.service'
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop'
@@ -17,7 +19,7 @@ import {
   Validators,
 } from '@angular/forms'
 import {isPlatformBrowser} from '@angular/common'
-import {exhaustMap, filter, of, tap} from 'rxjs'
+import {exhaustMap, filter, fromEvent, of, tap} from 'rxjs'
 import {RouterLink} from '@angular/router'
 import {ILoginUser, INewUser} from '../../models/auth.model'
 
@@ -32,7 +34,12 @@ import {ILoginUser, INewUser} from '../../models/auth.model'
 export class AuthComponent {
   private readonly authService = inject(AuthService)
 
+  private submitButton =
+    viewChild.required<ElementRef<HTMLButtonElement>>('submitButton')
+
   isLoginMode = signal<boolean>(true)
+
+  authStatus = this.authService.selectAuthStatus
 
   private readonly destroyRef = inject(DestroyRef)
   private readonly platformId = inject(PLATFORM_ID)
@@ -45,10 +52,7 @@ export class AuthComponent {
 
   constructor() {
     this.authForm = new FormBuilder().group({
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email,
-      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -77,36 +81,30 @@ export class AuthComponent {
 
   submit() {
     if (isPlatformBrowser(this.platformId)) {
-      of(this.authForm.getRawValue())
-        .pipe(
-          tap(() =>
-            this.authService.authState.update((state) => ({
-              ...state,
-              authStatus: 'loading',
-            })),
-          ),
-          takeUntilDestroyed(this.destroyRef),
-          filter(() => this.authForm.valid),
-          exhaustMap((formData) =>
-              this.isLoginMode()
-                ? this.authService.login({'user': formData} as ILoginUser)
-                : this.authService.register({'user': formData} as INewUser)
-          ),
-        )
-        .subscribe({
-          next: (userData) =>
-            this.authService.authState.update((state) => ({
-              ...state,
-              user: userData,
-              authStatus: 'loaded',
-            })),
-          error: (err) =>
-            this.authService.authState.update((state) => ({
-              ...state,
-              error: err.error,
-              authStatus: 'error',
-            })),
-        })
+      this.authService.authState.update((state) => ({
+        ...state,
+        authStatus: 'loading',
+      }))
+
+      const formData = this.authForm.getRawValue()
+
+      const auth = this.isLoginMode()
+        ? this.authService.login({user: formData} as ILoginUser)
+        : this.authService.register({user: formData} as INewUser)
+
+      auth.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: () =>
+          this.authService.authState.update((state) => ({
+            ...state,
+            authStatus: 'loaded',
+          })),
+        error: (err) =>
+          this.authService.authState.update((state) => ({
+            ...state,
+            error: err.error,
+            authStatus: 'error',
+          })),
+      })
     }
   }
 }
