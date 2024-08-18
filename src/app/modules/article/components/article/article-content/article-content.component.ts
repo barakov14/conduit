@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core'
+import {DeepReadonlyObject} from '../../../../../core/utils/deep-readonly'
+import {IArticle} from '../../../models/article.model'
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
 
 @Component({
   selector: 'mc-article-content',
@@ -9,5 +12,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArticleContentComponent {
-
+  article = input.required<DeepReadonlyObject<IArticle>>()
 }

@@ -9,19 +9,21 @@ export class ArticleService {
 
   private readonly httpClient = inject(ApiService)
 
-  public readonly authState = signal<ArticleState>({
+  public readonly articleState = signal<ArticleState>({
     articles: null,
+    article: null,
     error: null
   })
 
-  selectArticles = computed(() => this.authState().articles)
-  selectArticleErrors = computed(() => this.authState().error)
+  selectArticles = computed(() => this.articleState().articles)
+  selectArticle = computed(() => this.articleState().article)
+  selectArticleErrors = computed(() => this.articleState().error)
 
   fetchArticles() {
     return this.httpClient.get<ArticlesDTO>('/articles')
   }
 
   fetchArticle(slug: string) {
-    return this.httpClient.get<ArticleDTO>(`/article/${slug}`)
+    return this.httpClient.get<ArticleDTO>(`/articles/${slug}`)
   }
 }

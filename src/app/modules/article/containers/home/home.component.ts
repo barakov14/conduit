@@ -30,11 +30,11 @@ export class HomeComponent implements OnInit{
     this.articleService.fetchArticles().pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (articles) => this.articleService.authState.update((state) => ({
+      next: (articles) => this.articleService.articleState.update((state) => ({
         ...state,
         articles
       })),
-      error: (err) => this.articleService.authState.update((state) => ({
+      error: (err) => this.articleService.articleState.update((state) => ({
         ...state,
         error: err.errors
       }))

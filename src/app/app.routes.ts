@@ -16,6 +16,12 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'article/:slug',
+    loadComponent: () =>
+      import('./modules/article/containers/article/article.component')
+        .then(c => c.ArticleComponent)
+  },
+  {
     path: 'edit',
     loadComponent: () =>
       import('./modules/article/containers/editor/editor.component').then(

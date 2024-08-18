@@ -60,7 +60,7 @@ export class AuthService {
 
   private saveUserAndRedirect(jwtToken: string, user: UserCredentials) {
     this.jwtService.saveToken(jwtToken)
-    this.router.navigateByUrl('/')
+    // this.router.navigateByUrl('/')
     this.authState.update((state) => ({
       ...state,
       user,
