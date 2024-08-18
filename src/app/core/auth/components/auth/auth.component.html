@@ -11,9 +11,9 @@
           }}</a>
         </p>
 
-        <ul class="error-messages">
-          <li>That email is already taken</li>
-        </ul>
+        <mc-errors
+          [errors]="errors()"
+        ></mc-errors>
 
         <form [formGroup]="authForm" (ngSubmit)="submit()">
           @if (!isLoginMode()) {

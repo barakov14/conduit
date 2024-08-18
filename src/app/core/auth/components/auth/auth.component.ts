@@ -22,11 +22,12 @@ import {isPlatformBrowser} from '@angular/common'
 import {exhaustMap, filter, fromEvent, of, tap} from 'rxjs'
 import {RouterLink} from '@angular/router'
 import {ILoginUser, INewUser} from '../../models/auth.model'
+import {ErrorsComponent} from '../../../../shared/components/errors/errors.component'
 
 @Component({
   selector: 'auth',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ErrorsComponent],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,6 +41,7 @@ export class AuthComponent {
   isLoginMode = signal<boolean>(true)
 
   authStatus = this.authService.selectAuthStatus
+  errors = this.authService.selectError
 
   private readonly destroyRef = inject(DestroyRef)
   private readonly platformId = inject(PLATFORM_ID)
