@@ -1,14 +1,11 @@
-import {LocalStorageJwtService} from './local-storage-jwt.service'
 import {inject} from '@angular/core'
 import {Router} from '@angular/router'
+import {AuthService} from './auth.service'
 
 export const authGuard = () => {
   const router = inject(Router)
-  const storage = inject(LocalStorageJwtService)
+  const authService = inject(AuthService)
 
-  if (!storage.getToken()) {
-    router.navigate(['/'])
-    return false
-  }
-  return true
+  return !authService.selectLoggedIn;
+
 }

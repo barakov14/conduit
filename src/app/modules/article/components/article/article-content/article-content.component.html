@@ -4,12 +4,11 @@
       {{ article.description }}
     </p>
     <h2 id="introducing-ionic">{{ article.title }}</h2>
-    <p [innerText]="article.body"></p>
+    <div [innerHTML]="article.body"></div>
     <ul class="tag-list">
       @for(tag of article.tagsList; track $index) {
         <li class="tag-default tag-pill tag-outline">{{ tag }}</li>
       }
     </ul>
   </div>
-
 }
