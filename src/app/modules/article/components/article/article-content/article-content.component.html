@@ -5,8 +5,9 @@
     </p>
     <h2 id="introducing-ionic">{{ article.title }}</h2>
     <div [innerHTML]="article.body"></div>
+
     <ul class="tag-list">
-      @for(tag of article.tagsList; track $index) {
+      @for(tag of article.tagList; track tag) {
         <li class="tag-default tag-pill tag-outline">{{ tag }}</li>
       }
     </ul>

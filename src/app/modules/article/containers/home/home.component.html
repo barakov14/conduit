@@ -23,7 +23,11 @@
       </div>
 
       <div class="col-md-3">
-        <mc-tags-list></mc-tags-list>
+        @if(selectTags(); as selectTags) {
+          <mc-tags-list
+            [tags]="selectTags.tags"
+          ></mc-tags-list>
+        }
       </div>
     </div>
   </div>

@@ -4,29 +4,29 @@
     <ul class="nav navbar-nav pull-xs-right">
       <li class="nav-item">
         <!-- Add "active" class when you're on that page" -->
-        <a class="nav-link active" routerLink="/">Home</a>
+        <a class="nav-link active" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
       </li>
 
       <ng-container *userAuthenticated="false">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/auth">Sign in</a>
+          <a class="nav-link" routerLink="/auth" routerLinkActive="active">Sign in</a>
         </li>
       </ng-container>
 
       <ng-container *userAuthenticated="true">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/edit">
+          <a class="nav-link" routerLink="/edit" routerLinkActive="active">
             <i class="ion-compose"></i>&nbsp;New Article
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/settings">
+          <a class="nav-link" routerLink="/settings" routerLinkActive="active">
             <i class="ion-gear-a"></i>&nbsp;Settings
           </a>
         </li>
         <li class="nav-item">
           @if (currentUser()?.user; as user) {
-            <a class="nav-link" href="/profile/eric-simons">
+            <a class="nav-link" [routerLink]="['/profile', user.username]" routerLinkActive="active">
               <img [src]="user.image" class="user-pic" />
               {{ user.username }}
             </a>

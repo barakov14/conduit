@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core'
+import {ChangeDetectionStrategy, Component, input} from '@angular/core'
 import {DeepReadonlyObject} from '../../../../../core/utils/deep-readonly'
 import {IArticle} from '../../../models/article.model'
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
 
 @Component({
   selector: 'mc-article-content',
