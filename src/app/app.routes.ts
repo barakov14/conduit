@@ -9,11 +9,23 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'profile/:username',
+    loadComponent: () =>
+      import('./modules/profile/containers/user-profile/user-profile.component')
+        .then(c => c.UserProfileComponent)
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./modules/article/containers/home/home.component').then(
         (c) => c.HomeComponent,
       ),
+  },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./modules/profile/containers/settings/settings.component')
+        .then(c => c.SettingsComponent)
   },
   {
     path: 'article/:slug',
